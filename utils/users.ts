@@ -1,7 +1,7 @@
 import { IUser } from "../interfaces/user";
 import { v4 as uuidv4} from "uuid";
 
-type Result = {
+interface Result {
     page: number,
     size: number,
     result: IUser[]
