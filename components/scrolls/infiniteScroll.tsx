@@ -5,15 +5,20 @@ const Scroll = styled.div`
   display: block;
   width: 100%;
   height: fit-content;
-  align: center;
+  min-height: 10px;
 `;
 
 export interface ScrollProps {
   children: React.ReactNode;
   fetchItems: () => void;
+  threshold?: number;
 }
 
-export const InfiniteScroll = ({ children, fetchItems }: ScrollProps) => {
+export const InfiniteScroll = ({
+  children,
+  fetchItems,
+  threshold = 0.8,
+}: ScrollProps) => {
   const ref = useRef(null);
 
   const handleIntersect: IntersectionObserverCallback = useCallback(
@@ -29,12 +34,12 @@ export const InfiniteScroll = ({ children, fetchItems }: ScrollProps) => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersect, {
-      threshold: 0.8,
+      threshold,
     });
     observer.observe(ref.current);
 
     return () => observer.disconnect();
-  }, [handleIntersect]);
+  }, [handleIntersect, threshold]);
 
   return <Scroll ref={ref}>{children}</Scroll>;
 };

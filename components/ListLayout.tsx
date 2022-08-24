@@ -6,19 +6,21 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  height: calc(100vh - 16px);
+  height: 100vh;
+  padding: 8px;
   align-items: center;
 `;
 const Title = styled.h1`
-  border-bottom: 1px solid ${(props) => props.theme.colors.borderColor};
-  color: ${(props) => props.theme.colors.primary};
-  text-shadow: 0 0 2px ${(props) => props.theme.colors.white};
+  color: ${({ theme }) => theme.colors.dark};
+  text-shadow: 0 0 2px ${({ theme }) => theme.colors.highlight};
   text-align: center;
   flex: 1 1 0;
 `;
 const Content = styled.div`
-  flex: 15 0 90vh;
+  flex: 15 1 calc(100% - 16px);
   overflow: hidden;
+  display: flex;
+  width: 100%;
 }
 `;
 
