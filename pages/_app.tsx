@@ -3,17 +3,8 @@ import Head from "next/head";
 import { ComponentType } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import Layout from "../components/Layout";
-
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#111",
-    secondary: "#0070f3",
-    white: "#fff",
-    black: "#000",
-    borderColor: "#ccc",
-    shadowColor: "#c3c3c3",
-  },
-};
+import GlobalStyles from "../components/styles/globalstyles";
+import { theme } from "../components/themes/theme";
 
 type CompProps = AppProps["Component"] & {
   Layout?: ComponentType;
@@ -34,6 +25,7 @@ export default function App({
         <title>HeeApp_scroll</title>
       </Head>
       <ThemeProvider theme={theme}>
+        <GlobalStyles />
         <ComputedLayout>
           <AppComponent {...pageProps} />
         </ComputedLayout>
