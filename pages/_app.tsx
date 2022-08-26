@@ -1,10 +1,10 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ComponentType } from "react";
-import { DefaultTheme, ThemeProvider } from "styled-components";
-import Layout from "../components/Layout";
-import GlobalStyles from "../components/styles/globalstyles";
-import { theme } from "../components/themes/theme";
+import { ThemeProvider } from "styled-components";
+import Layout from "components/Layout";
+import GlobalStyles from "components/styles/globalStyles";
+import { theme } from "components/themes/theme";
 
 type CompProps = AppProps["Component"] & {
   Layout?: ComponentType;

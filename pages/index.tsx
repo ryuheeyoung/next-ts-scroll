@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ListForm from "../components/ListForm";
-import ListLayout from "../components/ListLayout";
+import ListForm from "components/ListForm/ListForm";
+import ListLayout from "components/ListLayout";
 
 const Layouts = styled.div`
   display: flex;

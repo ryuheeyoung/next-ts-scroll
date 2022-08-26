@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { makeDatas } from "../../../utils/users";
+import { makeDatas } from "utils/users";
 
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
