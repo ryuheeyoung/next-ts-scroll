@@ -1,42 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
 import useSWRInfinite from "swr/infinite";
 
-import { IUser } from "../interfaces/user";
-import { Result } from "../utils/users";
-import { InfiniteScroll } from "./scrolls/infiniteScroll";
-
-const ListFormLayout = styled.ul`
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-`;
-
-const ListItem = styled.li`
-  box-shadow: 0 0 2px ${({ theme }) => theme.colors.secondary};
-  background: ${({ theme }) => theme.colors.secondary};
-  border-radius: 5px;
-  margin: 10px 10px 7px 0;
-  padding: 0.5em 1.25em;
-  & > div {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 5px;
-    & > span {
-      margin-bottom: 5px;
-      &:nth-child(1) {
-        flex: 1 0 48px;
-        border-right: 1px solid;
-        text-align: right;
-        padding-right: 5px;
-      }
-      &:nth-child(2) {
-        flex: 4 1 0;
-      }
-    }
-  }
-`;
+import { IUser } from "interfaces/user";
+import { Result } from "utils/users";
+import { InfiniteScroll } from "components/scrolls/infiniteScroll";
+import { ListFormLayout, ListItem } from "components/ListForm/Listform.styled";
 
 const fetcher = (url: string) =>
   fetch(url).then((r) => {
@@ -46,6 +14,7 @@ const fetcher = (url: string) =>
   });
 
 const pageSize = 30;
+
 const ListForm = ({ result }) => {
   const [list, setList] = useState<IUser[]>(result);
   const [loading, setLoading] = useState(false);
@@ -92,32 +61,40 @@ const ListForm = ({ result }) => {
     }
   }, [loading, setSize]);
 
+  const titles = {
+    id: "ID",
+    uuid: "UUID",
+    key: "Key",
+    created_at: "Created.",
+  };
+
   return (
     <>
       {list && (
         <ListFormLayout>
           {list.map((l) => (
             <ListItem key={l.id}>
-              <div>
-                <span>ID</span>
-                <span>{l.id} </span>
-              </div>
-              <div>
-                <span>UUID</span>
-                <span>{l.uuid} </span>
-              </div>
-              <div>
-                <span>Key</span>
-                <span>{l.key} </span>
-              </div>
-              <div>
-                <span>Created.</span>
-                <span>{l.created_at} </span>
-              </div>
+              {Object.entries(titles).map(([k, v]) => (
+                <div key={`list-${k}`}>
+                  <span>{v}</span>
+                  <span>{l[k]} </span>
+                </div>
+              ))}
             </ListItem>
           ))}
-          <InfiniteScroll fetchItems={fetchItems}>
-            <div>{loading ? " Loading ..." : " "}</div>
+          <InfiniteScroll fetchItems={fetchItems} threshold={0.2}>
+            {loading ? (
+              <ListItem className="loader">
+                {Object.entries(titles).map(([k, v]) => (
+                  <div key={`loader-${k}`}>
+                    <span>{v}</span>
+                    <span></span>
+                  </div>
+                ))}
+              </ListItem>
+            ) : (
+              <div></div>
+            )}
           </InfiniteScroll>
         </ListFormLayout>
       )}
