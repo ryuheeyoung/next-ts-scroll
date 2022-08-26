@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
 import useSWRInfinite from "swr/infinite";
 
-import { IUser } from "interfaces/user";
-import { Result } from "utils/users";
-import { InfiniteScroll } from "components/scrolls/infiniteScroll";
 import { ListFormLayout, ListItem } from "components/ListForm/Listform.styled";
-
-const fetcher = (url: string) =>
-  fetch(url).then((r) => {
-    if (!r.ok) return [];
-
-    return r.json();
-  });
+import { InfiniteScroll } from "components/scrolls/infiniteScroll";
+import { IUser } from "interfaces/user";
+import fetcher from "utils/fetcher";
+import { Result } from "utils/users";
 
 const pageSize = 30;
 
