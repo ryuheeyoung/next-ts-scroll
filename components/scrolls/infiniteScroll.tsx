@@ -41,12 +41,14 @@ export interface ScrollProps {
   children: React.ReactNode;
   fetchItems: () => void;
   threshold?: number;
+  rootMargin?: string;
 }
 
 export const InfiniteScroll = ({
   children,
   fetchItems,
   threshold = 0.8,
+  rootMargin = "0px",
 }: ScrollProps) => {
   const ref = useRef(null);
 
@@ -64,11 +66,12 @@ export const InfiniteScroll = ({
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersect, {
       threshold,
+      rootMargin,
     });
     observer.observe(ref.current);
 
     return () => observer.disconnect();
-  }, [handleIntersect, threshold]);
+  }, [handleIntersect, threshold, rootMargin]);
 
   return (
     <Scroll ref={ref}>
