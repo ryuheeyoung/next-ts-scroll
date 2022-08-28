@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import useSWRInfinite from "swr/infinite";
 
-import { ListFormLayout, ListItem } from "components/ListForm/Listform.styled";
+import { ListFormLayout, ListItem } from "components/ListForm/ListForm.styled";
 import { InfiniteScroll } from "components/scrolls/infiniteScroll";
 import { IUser } from "interfaces/user";
 import fetcher from "utils/fetcher";
 import { Result } from "utils/users";
 
 const pageSize = 30;
-
 const ListForm = ({ result }) => {
   const [list, setList] = useState<IUser[]>(result);
   const [loading, setLoading] = useState(false);
@@ -77,18 +76,14 @@ const ListForm = ({ result }) => {
             </ListItem>
           ))}
           <InfiniteScroll fetchItems={fetchItems} threshold={0.2}>
-            {loading ? (
-              <ListItem className="loader">
-                {Object.entries(titles).map(([k, v]) => (
+            <ListItem className="loader">
+              {loading &&
+                Object.entries(titles).map(([k, v]) => (
                   <div key={`loader-${k}`}>
-                    <span>{v}</span>
                     <span></span>
                   </div>
                 ))}
-              </ListItem>
-            ) : (
-              <div></div>
-            )}
+            </ListItem>
           </InfiniteScroll>
         </ListFormLayout>
       )}

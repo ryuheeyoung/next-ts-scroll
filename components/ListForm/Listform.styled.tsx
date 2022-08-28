@@ -21,20 +21,27 @@ export const ListItem = styled.li`
   &.loader {
     color: transparent;
     opacity: 0.8;
+    & span {
+      width: 100%;
+      height: 19px;
+      background: ${({ theme }) => theme.colors.white};
+      opacity: 0.2;
+      border-radius: 5px;
+    }
   }
-  & > div {
+  & div {
     display: flex;
     flex-flow: row nowrap;
     gap: 5px;
-    & > span {
+    > span {
       margin-bottom: 5px;
-      &:nth-child(1) {
+      :not(.loader) &:nth-child(1) {
         flex: 1 0 48px;
         border-right: 1px solid;
         text-align: right;
         padding-right: 5px;
       }
-      &:nth-child(2) {
+      :not(.loader) &:nth-child(2) {
         flex: 4 1 0;
       }
     }
