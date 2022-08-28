@@ -21,9 +21,10 @@ export const makeDatas = (page: number, size: number): Result => {
       console.log("It's a very slow API...2..." + j);
     }
 
-    let hex = Math.round(Math.random() * 0xffffff).toString(16);
-    const add = Math.round(Math.random() * 0xf).toString(16);
-    hex = hex.length === 6 ? hex : hex + add;
+    let hex = "";
+    for (let c = 0; c < 6; c++) {
+      hex += Math.round(Math.random() * 0xf).toString(16);
+    }
 
     colors.push({
       id: i,

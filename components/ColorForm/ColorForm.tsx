@@ -18,17 +18,20 @@ const ColorItem = styled.div<{ background?: string }>`
   box-shadow: 0 0 2px ${({ theme }) => theme.colors.primary}};
   flex: 1 1 0;
   padding: 1.25em;
+  margin-right: 9px;
   display: flex;
   justify-content: center;
-  ${(props) => !props.background && `opacity: 0.8; color: transparent;`}
+  ${(props) => !props.background && `opacity: 0.8;`}
 `;
 
 const EmptyItem = styled.div`
+  flex: 1 1 0;
   padding: 1.25em;
   text-align: center;
+  justify-content: center;
 `;
 
-const pageSize = 60;
+const pageSize = 30;
 const ColorForm = () => {
   const [list, setList] = useState<IColor[]>();
   const [loading, setLoading] = useState(false);
@@ -77,13 +80,9 @@ const ColorForm = () => {
             </ColorItem>
           ))}
           <InfiniteScroll fetchItems={fetchItems} threshold={1}>
-            {loading ? (
-              <ColorItem>
-                <span>HEX</span>
-              </ColorItem>
-            ) : (
-              <div></div>
-            )}
+            <ColorItem>
+              <span>{loading ? "컬러 추가 중" : "컬러 추가 요청"}</span>
+            </ColorItem>
           </InfiniteScroll>
         </>
       )}
