@@ -28,11 +28,11 @@ const ListLayout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
-        <title>UserList</title>
+        <title>infinite scroll</title>
       </Head>
 
       <Main>
-        <Title>사용자 리스트</Title>
+        <Title>무한 스크롤</Title>
         <Content>{children}</Content>
       </Main>
     </>

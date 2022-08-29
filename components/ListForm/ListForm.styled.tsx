@@ -35,13 +35,13 @@ export const ListItem = styled.li`
     gap: 5px;
     > span {
       margin-bottom: 5px;
-      :not(.loader) &:nth-child(1) {
+      &:nth-child(1) {
         flex: 1 0 48px;
         border-right: 1px solid;
         text-align: right;
         padding-right: 5px;
       }
-      :not(.loader) &:nth-child(2) {
+      &:nth-child(2) {
         flex: 4 1 0;
       }
     }
