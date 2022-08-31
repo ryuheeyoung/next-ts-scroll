@@ -1,10 +1,4 @@
-import React, {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface IntersectionProps extends IntersectionObserverInit {}
 
@@ -17,9 +11,7 @@ const useIntersection = (options: IntersectionProps) => {
   };
 
   const onIntersection: IntersectionObserverCallback = useCallback(
-    ([entry], observer) => {
-      if (ref.current !== entry.target) return;
-
+    ([entry]) => {
       setIsIntersecting(entry.isIntersecting);
     },
     []
