@@ -1,32 +1,28 @@
 import { useEffect, useState } from "react";
 import useSWRInfinite from "swr/infinite";
 
-import { ListFormLayout, ListItem } from "components/ListForm/ListForm.styled";
-import { InfiniteScroll } from "components/scrolls/infiniteScroll";
 import { IUser } from "interfaces/user";
+
 import fetcher from "utils/fetcher";
 import { Result } from "utils/users";
+
+import useIntersection from "hooks/useIntersection";
+import { ListFormLayout, ListItem } from "components/ListForm/listForm.styled";
 
 const pageSize = 30;
 const ListForm = ({ result }) => {
   const [list, setList] = useState<IUser[]>(result);
   const [loading, setLoading] = useState(false);
+  const { setRef, isIntersecting } = useIntersection({ threshold: 0.8 });
 
   const getKey = (pageIndex: any) => {
     return `/api/list?page=${pageIndex + 1}&size=${pageSize}`;
   };
 
-  const { data, error, isValidating, mutate, size, setSize } =
-    useSWRInfinite<Result>(getKey, {
-      fetcher,
-      revalidateFirstPage: false,
-    });
-
-  const fetchItems = () => {
-    if (!loading) {
-      setLoading(true);
-    }
-  };
+  const { data, setSize } = useSWRInfinite<Result>(getKey, {
+    fetcher,
+    revalidateFirstPage: false,
+  });
 
   useEffect(() => {
     if (data) {
@@ -54,6 +50,12 @@ const ListForm = ({ result }) => {
     }
   }, [loading, setSize]);
 
+  useEffect(() => {
+    if (isIntersecting) {
+      setLoading(true);
+    }
+  }, [isIntersecting]);
+
   const titles = {
     id: "ID",
     uuid: "UUID",
@@ -75,16 +77,14 @@ const ListForm = ({ result }) => {
               ))}
             </ListItem>
           ))}
-          <InfiniteScroll fetchItems={fetchItems} threshold={0.2}>
-            <ListItem className="loader">
-              {loading &&
-                Object.entries(titles).map(([k, v]) => (
-                  <div key={`loader-${k}`}>
-                    <span></span>
-                  </div>
-                ))}
-            </ListItem>
-          </InfiniteScroll>
+          <ListItem className="loader" ref={setRef}>
+            {loading &&
+              Object.entries(titles).map(([k, v]) => (
+                <div key={`loader-${k}`}>
+                  <span></span>
+                </div>
+              ))}
+          </ListItem>
         </ListFormLayout>
       )}
     </>
