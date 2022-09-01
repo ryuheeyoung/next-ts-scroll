@@ -1,8 +1,9 @@
 import { Layouts } from "components/styles/sharedStyles";
 
-import ListForm from "components/ListForm/ListForm";
+import ListForm from "components/ListForm/listForm";
 import ListLayout from "components/ListLayout";
-import ColorForm from "components/ColorForm/ColorForm";
+import ColorForm from "components/ColorForm/colorForm";
+import IntersectForm from "components/IntersectForm/intersectForm";
 
 const IndexPage = ({ ...props }) => {
   return (
@@ -13,7 +14,9 @@ const IndexPage = ({ ...props }) => {
       <div>
         <ColorForm />
       </div>
-      <div> hi</div>
+      <div>
+        <IntersectForm />
+      </div>
     </Layouts>
   );
 };
