@@ -1,40 +1,24 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import useSWRInfinite from "swr/infinite";
 
 import { IColor } from "interfaces/color";
+
 import { Result } from "utils/colors";
 import fetcher from "utils/fetcher";
-import { InfiniteScroll } from "components/scrolls/infiniteScroll";
 
-const ColorFormLayout = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 5px;
-`;
+import useIntersection from "hooks/useIntersection";
 
-const ColorItem = styled.div<{ background?: string }>`
-  background: ${(props) => props.background || props.theme.colors.primary};
-  box-shadow: 0 0 2px ${({ theme }) => theme.colors.primary}};
-  flex: 1 1 0;
-  padding: 1.25em;
-  margin-right: 9px;
-  display: flex;
-  justify-content: center;
-  ${(props) => !props.background && `opacity: 0.8;`}
-`;
-
-const EmptyItem = styled.div`
-  flex: 1 1 0;
-  padding: 1.25em;
-  text-align: center;
-  justify-content: center;
-`;
+import {
+  ColorFormLayout,
+  ColorItem,
+  EmptyItem,
+} from "components/ColorForm/colorForm.styled";
 
 const pageSize = 30;
 const ColorForm = () => {
   const [list, setList] = useState<IColor[]>();
   const [loading, setLoading] = useState(false);
+  const { setRef, isIntersecting } = useIntersection({ threshold: 1 });
 
   const getKey = (pageIndex: number) => {
     return `/api/color?page=${pageIndex + 1}&size=${pageSize}`;
@@ -44,12 +28,6 @@ const ColorForm = () => {
     fetcher,
     revalidateFirstPage: false,
   });
-
-  const fetchItems = () => {
-    if (!loading) {
-      setLoading(true);
-    }
-  };
 
   useEffect(() => {
     if (data) {
@@ -70,6 +48,12 @@ const ColorForm = () => {
     }
   }, [loading, setSize]);
 
+  useEffect(() => {
+    if (isIntersecting) {
+      setLoading(true);
+    }
+  }, [isIntersecting]);
+
   return (
     <ColorFormLayout>
       {list && (
@@ -79,11 +63,9 @@ const ColorForm = () => {
               <span>{`#${l.hex.toUpperCase()}`}</span>
             </ColorItem>
           ))}
-          <InfiniteScroll fetchItems={fetchItems} threshold={1}>
-            <ColorItem>
-              <span>{loading ? "컬러 추가 중" : "컬러 추가 요청"}</span>
-            </ColorItem>
-          </InfiniteScroll>
+          <ColorItem ref={setRef}>
+            <span>{loading ? "컬러 추가 중" : "컬러 추가 요청"}</span>
+          </ColorItem>
         </>
       )}
       {!list && <EmptyItem> 색상 불러오는 중 </EmptyItem>}
