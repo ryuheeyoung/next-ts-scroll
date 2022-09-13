@@ -36,6 +36,7 @@ const IntersectBox = styled.div`
   flex-flow: row nowrap;
   gap: 5px;
   align-items: center;
+  margin-right: 11px;
 `;
 const IntersectItem = styled.div`
   flex: 1 0 auto;
