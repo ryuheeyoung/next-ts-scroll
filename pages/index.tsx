@@ -1,7 +1,8 @@
 import { Layouts } from "components/styles/sharedStyles";
 
-import ListForm from "components/ListForm/listForm";
 import ListLayout from "components/ListLayout";
+
+import ListForm from "components/ListForm/listForm";
 import ColorForm from "components/ColorForm/colorForm";
 import IntersectForm from "components/IntersectForm/intersectForm";
 

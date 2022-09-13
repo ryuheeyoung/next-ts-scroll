@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const ListFormLayout = styled.ul`
+const ListFormLayout = styled.ul`
   height: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 `;
 
-export const ListItem = styled.li`
+const ListItem = styled.li`
   box-shadow: 0 0 2px ${({ theme }) => theme.colors.secondary};
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;
@@ -47,3 +47,5 @@ export const ListItem = styled.li`
     }
   }
 `;
+
+export { ListFormLayout, ListItem };

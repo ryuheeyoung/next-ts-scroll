@@ -3,8 +3,7 @@ import useSWRInfinite from "swr/infinite";
 
 import { IColor } from "interfaces/color";
 
-import { Result } from "utils/colors";
-import fetcher from "utils/fetcher";
+import fetcher, { Result } from "utils/fetcher";
 
 import useIntersection from "hooks/useIntersection";
 
@@ -14,17 +13,42 @@ import {
   EmptyItem,
 } from "components/ColorForm/colorForm.styled";
 
+/**
+ * api 결과 size
+ */
 const pageSize = 30;
+
+/**
+ * 색상 목록 컴포넌트
+ * @returns
+ */
 const ColorForm = () => {
+  /**
+   * 색상 목록 데이터
+   */
   const [list, setList] = useState<IColor[]>();
+  /**
+   * 로더
+   */
   const [loading, setLoading] = useState(false);
+  /**
+   * useIntersection
+   */
   const { setRef, isIntersecting } = useIntersection({ threshold: 1 });
 
+  /**
+   * infinite swr getKey
+   * @param pageIndex
+   * @returns url
+   */
   const getKey = (pageIndex: number) => {
     return `/api/color?page=${pageIndex + 1}&size=${pageSize}`;
   };
 
-  const { data, setSize } = useSWRInfinite<Result>(getKey, {
+  /**
+   * 무한 swr
+   */
+  const { data, setSize } = useSWRInfinite<Result<IColor>>(getKey, {
     fetcher,
     revalidateFirstPage: false,
   });
