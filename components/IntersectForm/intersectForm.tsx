@@ -10,19 +10,42 @@ import {
   IntersectItem,
 } from "components/IntersectForm/intersectForm.styled";
 
+/**
+ * 스크롤 교차 컴포넌트
+ * @description intersection test 폼용, 각 컴포넌트가 보여지는 횟수만큼 그래프 그리기
+ * @returns
+ */
 const IntersectForm = () => {
+  /**
+   * item 1 height
+   */
   const [h1, setH1] = useState(0);
+  /**
+   * item 2 height
+   */
   const [h2, setH2] = useState(0);
+  /**
+   * item 3 height
+   */
   const [h3, setH3] = useState(0);
 
+  /**
+   * useIntersection ref1 (item 1)
+   */
   const { setRef: ref, isIntersecting: insect1 } = useIntersection({
     root: null,
     threshold: 0,
   });
+  /**
+   * useIntersection ref2 (item 2)
+   */
   const { setRef: ref2, isIntersecting: insect2 } = useIntersection({
     root: null,
     threshold: 0.5,
   });
+  /**
+   * useIntersection ref3 (item 3)
+   */
   const { setRef: ref3, isIntersecting: insect3 } = useIntersection({
     root: null,
     threshold: 1,

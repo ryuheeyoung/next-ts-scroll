@@ -1,19 +1,15 @@
-import { IUser } from "../interfaces/user";
 import { v4 as uuidv4 } from "uuid";
 
-export interface Result {
-  page: number;
-  size: number;
-  result: IUser[];
-}
+import { IUser } from "interfaces/user";
+import { Result } from "utils/fetcher";
 
 /**
- *
+ * 무한 유저 목록 만들기 함수
  * @param page
  * @param size
- * @returns {Result}
+ * @returns {Result<IUser>}
  */
-export const makeDatas = (page: number, size: number): Result => {
+export const makeDatas = (page: number, size: number): Result<IUser> => {
   const start = (page - 1) * size + 1;
   const users: IUser[] = [];
 

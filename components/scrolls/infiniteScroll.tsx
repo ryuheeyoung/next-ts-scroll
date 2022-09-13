@@ -9,14 +9,12 @@ const loading_kf = keyframes`
       max-width: 100%;
   }
 `;
-
 const Scroll = styled.div`
   display: block;
   width: 100%;
   height: fit-content;
   min-height: 10px;
 `;
-
 const Loader = styled.div`
   position: relative;
   grid-column-end: 4;
@@ -50,8 +48,15 @@ export const InfiniteScroll = ({
   threshold = 0.8,
   rootMargin = "0px",
 }: ScrollProps) => {
+  /**
+   * element ref
+   * @init null
+   */
   const ref = useRef(null);
 
+  /**
+   * 교차 관찰 콜백 함수
+   */
   const handleIntersect: IntersectionObserverCallback = useCallback(
     ([entry], observer) => {
       if (entry.isIntersecting) {

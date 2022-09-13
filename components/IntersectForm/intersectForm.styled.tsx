@@ -7,7 +7,6 @@ const IntersectFormLayout = styled.div`
   position: relative;
   overflow: auto;
 `;
-
 const BoardBox = styled.div`
   position: sticky;
   top: 0;
@@ -22,7 +21,6 @@ const BoardBox = styled.div`
   justify-content: space-evenly;
   align-items: flex-end;
 `;
-
 const BoardItem = styled.div<{ h: number }>`
   position: relative;
   bottom: 0;
@@ -32,7 +30,6 @@ const BoardItem = styled.div<{ h: number }>`
   background: ${({ theme }) => theme.colors.highlight};
   z-index: 1;
 `;
-
 const IntersectBox = styled.div`
   height: 200%;
   display: flex;

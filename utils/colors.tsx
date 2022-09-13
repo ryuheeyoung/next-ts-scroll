@@ -1,18 +1,13 @@
 import { IColor } from "interfaces/color";
-
-export interface Result {
-  page: number;
-  size: number;
-  result: IColor[];
-}
+import { Result } from "utils/fetcher";
 
 /**
- *
+ * 무한 컬러 리스트 생성 함수
  * @param page
  * @param size
- * @returns {Result}
+ * @returns {Result<IColor>}
  */
-export const makeDatas = (page: number, size: number): Result => {
+export const makeDatas = (page: number, size: number): Result<IColor> => {
   const start = (page - 1) * size + 1;
   const colors: IColor[] = [];
 
